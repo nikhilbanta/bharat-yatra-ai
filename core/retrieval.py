@@ -22,6 +22,7 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 
 
 def load_dataset(name: str) -> list[dict]:
+    """Load a JSON dataset from the data directory by name."""
     path = os.path.join(DATA_DIR, name)
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -51,6 +52,7 @@ def _keyword_score(query: str, text: str) -> float:
 
 
 def _cosine_sim(a: np.ndarray, b: np.ndarray) -> float:
+    """Compute the cosine similarity between two numpy arrays."""
     denom = (np.linalg.norm(a) * np.linalg.norm(b))
     if denom == 0:
         return 0.0
@@ -113,8 +115,10 @@ def get_experiences_index() -> DatasetIndex:
 
 
 def search_destinations(query: str, top_k: int = 5) -> list[dict]:
+    """Search the destinations dataset for matches to the given query."""
     return get_destinations_index().search(query, top_k=top_k)
 
 
 def search_experiences(query: str, top_k: int = 5) -> list[dict]:
+    """Search the experiences dataset for matches to the given query."""
     return get_experiences_index().search(query, top_k=top_k)

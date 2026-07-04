@@ -15,6 +15,7 @@ import os
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
+from typing import Iterator
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app.db")
 
@@ -45,7 +46,8 @@ CREATE TABLE IF NOT EXISTS history (
 
 
 @contextmanager
-def get_connection(db_path: str = DB_PATH):
+def get_connection(db_path: str = DB_PATH) -> Iterator[sqlite3.Connection]:
+    """Yield a database connection and automatically commit transactions."""
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     try:
@@ -56,11 +58,13 @@ def get_connection(db_path: str = DB_PATH):
 
 
 def init_db(db_path: str = DB_PATH) -> None:
+    """Initialize the database schema if it doesn't already exist."""
     with get_connection(db_path) as conn:
         conn.executescript(SCHEMA)
 
 
 def _now() -> str:
+    """Return the current UTC timestamp as an ISO formatted string."""
     return datetime.now(timezone.utc).isoformat()
 
 
@@ -101,6 +105,7 @@ def save_profile(identifier: str, profile: dict, db_path: str = DB_PATH) -> None
 
 
 def get_profile(identifier: str, db_path: str = DB_PATH) -> dict | None:
+    """Retrieve a user's profile from the database based on their identifier."""
     identifier = identifier.strip().lower()
     with get_connection(db_path) as conn:
         row = conn.execute(
@@ -116,6 +121,7 @@ def get_profile(identifier: str, db_path: str = DB_PATH) -> dict | None:
 def add_history_entry(
     identifier: str, feature_type: str, query_input: str, ai_output: str, db_path: str = DB_PATH
 ) -> None:
+    """Add a new history entry for a specific user interaction."""
     identifier = identifier.strip().lower()
     with get_connection(db_path) as conn:
         conn.execute(
@@ -128,6 +134,7 @@ def add_history_entry(
 
 
 def get_history(identifier: str, limit: int = 20, db_path: str = DB_PATH) -> list[dict]:
+    """Retrieve the recent interaction history for a given user."""
     identifier = identifier.strip().lower()
     with get_connection(db_path) as conn:
         rows = conn.execute(

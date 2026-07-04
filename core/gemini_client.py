@@ -16,6 +16,7 @@ from __future__ import annotations
 import os
 import time
 from dataclasses import dataclass
+from typing import Callable, Any
 
 from google import genai
 from google.genai import types
@@ -34,24 +35,31 @@ class GeminiQuotaError(GeminiClientError):
 
 
 def _is_quota_error(exc: Exception) -> bool:
+    """Check if an exception is related to API quota exhaustion."""
     text = str(exc)
     return "429" in text or "RESOURCE_EXHAUSTED" in text
 
 
-def _with_retry(fn, max_retries: int = 2, base_delay: float = 2.0):
+def _with_retry(fn: Callable[[], Any], max_retries: int = 2, base_delay: float = 2.0) -> Any:
     """
     Retries a callable on quota/rate-limit errors with exponential backoff.
+    If multiple API keys are available, it will rotate keys before backing off.
     Only retries on 429s -- any other error fails immediately since retrying
     won't help (e.g. bad request, auth failure).
     """
     last_exc = None
-    for attempt in range(max_retries + 1):
+    _init_keys()
+    total_attempts = (max_retries + 1) * max(1, len(_api_keys))
+
+    for attempt in range(total_attempts):
         try:
             return fn()
         except Exception as exc:
             last_exc = exc
-            if _is_quota_error(exc) and attempt < max_retries:
-                time.sleep(base_delay * (2 ** attempt))
+            if _is_quota_error(exc) and attempt < total_attempts - 1:
+                rotated = rotate_client()
+                if not rotated:
+                    time.sleep(base_delay * (2 ** (attempt % (max_retries + 1))))
                 continue
             raise
     raise last_exc
@@ -64,37 +72,64 @@ class GenerationResult:
     sources: list[str] | None = None
 
 
-def _get_api_key() -> str:
+def _get_api_keys() -> list[str]:
     """
-    Resolve the API key from Streamlit secrets first, then environment
-    variables. Never hardcode a key in source.
+    Resolve API keys from Streamlit secrets first, then environment
+    variables. Supports comma-separated keys for rotation.
+    Never hardcode a key in source.
     """
+    keys_str = ""
     try:
         import streamlit as st
 
-        if "GEMINI_API_KEY" in st.secrets:
-            return st.secrets["GEMINI_API_KEY"]
+        if "GEMINI_API_KEYS" in st.secrets:
+            keys_str = st.secrets["GEMINI_API_KEYS"]
+        elif "GEMINI_API_KEY" in st.secrets:
+            keys_str = st.secrets["GEMINI_API_KEY"]
     except Exception:
         # st.secrets raises if no secrets.toml exists (e.g. in plain pytest runs).
         pass
 
-    key = os.environ.get("GEMINI_API_KEY")
-    if not key:
+    if not keys_str:
+        keys_str = os.environ.get("GEMINI_API_KEYS") or os.environ.get("GEMINI_API_KEY") or ""
+
+    if not keys_str:
         raise GeminiClientError(
-            "GEMINI_API_KEY is not set. Add it to .streamlit/secrets.toml "
-            "or as an environment variable."
+            "GEMINI_API_KEY(S) is not set. Add it to .streamlit/secrets.toml "
+            "or as an environment variable (comma-separated for multiple keys)."
         )
-    return key
+    return [k.strip() for k in keys_str.split(",") if k.strip()]
 
 
+_api_keys: list[str] = []
+_current_key_idx: int = 0
 _client: genai.Client | None = None
 
 
+def _init_keys() -> None:
+    global _api_keys
+    if not _api_keys:
+        _api_keys = _get_api_keys()
+
+
 def get_client() -> genai.Client:
-    global _client
+    """Initialize or return the cached Gemini client."""
+    global _client, _api_keys, _current_key_idx
+    _init_keys()
     if _client is None:
-        _client = genai.Client(api_key=_get_api_key())
+        _client = genai.Client(api_key=_api_keys[_current_key_idx])
     return _client
+
+
+def rotate_client() -> bool:
+    """Rotates to the next API key if multiple exist. Returns True if rotated."""
+    global _client, _api_keys, _current_key_idx
+    _init_keys()
+    if len(_api_keys) <= 1:
+        return False
+    _current_key_idx = (_current_key_idx + 1) % len(_api_keys)
+    _client = None  # Force recreation on next get_client()
+    return True
 
 
 DEFAULT_MODEL = "gemini-2.5-flash"
@@ -108,7 +143,7 @@ DEFAULT_MODEL = "gemini-2.5-flash"
 _NO_THINKING = types.ThinkingConfig(thinking_budget=0)
 
 
-def _check_truncation(response) -> None:
+def _check_truncation(response: Any) -> None:
     """
     Some Gemini builds still spend tokens on internal reasoning even with
     thinking disabled, which can leave an empty or cut-off response with
@@ -129,9 +164,9 @@ def _check_truncation(response) -> None:
 
 def generate(prompt: str, system_instruction: str | None = None, model: str = DEFAULT_MODEL) -> GenerationResult:
     """Plain generation call — used for storytelling, recommendations, etc."""
-    client = get_client()
 
     def _call():
+        client = get_client()
         return client.models.generate_content(
             model=model,
             contents=prompt,
@@ -163,10 +198,10 @@ def generate_grounded(prompt: str, system_instruction: str | None = None, model:
     Generation call with Google Search grounding enabled — used for hidden
     gems and local events, where current, real-world information matters.
     """
-    client = get_client()
     grounding_tool = types.Tool(google_search=types.GoogleSearch())
 
     def _call():
+        client = get_client()
         return client.models.generate_content(
             model=model,
             contents=prompt,

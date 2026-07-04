@@ -10,7 +10,8 @@ outputs are genuinely personalized rather than generic.
 from __future__ import annotations
 
 
-def _language_instruction(profile: dict) -> str:
+def _language_instruction(profile: dict | None) -> str:
+    """Determine language instructions based on user profile preferences."""
     lang = (profile or {}).get("language_pref", "English")
     if lang == "Hindi":
         return "Respond entirely in Hindi (Devanagari script)."
@@ -19,7 +20,8 @@ def _language_instruction(profile: dict) -> str:
     return "Respond in English."
 
 
-def _profile_summary(profile: dict) -> str:
+def _profile_summary(profile: dict | None) -> str:
+    """Generate a text summary of the user's profile to inject into prompts."""
     if not profile:
         return "No profile details provided; give generally appealing suggestions for an Indian traveler."
     parts = []
