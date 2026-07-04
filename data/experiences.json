@@ -1,0 +1,92 @@
+[
+  {
+    "id": "e001",
+    "title": "Madhubani painting workshop",
+    "location": "Mithila region, Bihar",
+    "category": "craft",
+    "description": "Learn the traditional Madhubani/Mithila folk painting style directly from village artists using natural dyes.",
+    "duration_hint": "half day",
+    "tags": ["art", "handicraft", "women artisans"]
+  },
+  {
+    "id": "e002",
+    "title": "Pottery with Khurja artisans",
+    "location": "Khurja, Uttar Pradesh",
+    "category": "craft",
+    "description": "Hands-on pottery session with generations-old ceramic artisan families known as the 'Ceramic City' of India.",
+    "duration_hint": "half day",
+    "tags": ["pottery", "handicraft"]
+  },
+  {
+    "id": "e003",
+    "title": "Living root bridge trek with Khasi guide",
+    "location": "Meghalaya",
+    "category": "nature + culture",
+    "description": "Trek to living root bridges with a local Khasi guide who shares indigenous ecological knowledge.",
+    "duration_hint": "full day",
+    "tags": ["trekking", "tribal culture", "eco-tourism"]
+  },
+  {
+    "id": "e004",
+    "title": "Kanchipuram silk weaving visit",
+    "location": "Kanchipuram, Tamil Nadu",
+    "category": "craft",
+    "description": "Watch and learn the intricate handloom process behind the famed Kanchipuram silk sarees.",
+    "duration_hint": "half day",
+    "tags": ["textile", "handloom", "heritage"]
+  },
+  {
+    "id": "e005",
+    "title": "Homestay with an Apatani family",
+    "location": "Ziro Valley, Arunachal Pradesh",
+    "category": "homestay",
+    "description": "Stay with an Apatani tribal family, share meals, and learn about their unique wet-rice-cum-fish farming.",
+    "duration_hint": "overnight",
+    "tags": ["homestay", "tribal culture", "offbeat"]
+  },
+  {
+    "id": "e006",
+    "title": "Rann Utsav folk music evening",
+    "location": "Rann of Kutch, Gujarat",
+    "category": "festival",
+    "description": "Evening of Kutchi folk music and dance performances under the desert sky, with local handicraft stalls.",
+    "duration_hint": "evening",
+    "tags": ["festival", "music", "handicraft"]
+  },
+  {
+    "id": "e007",
+    "title": "Kodava cuisine cooking session",
+    "location": "Coorg, Karnataka",
+    "category": "food",
+    "description": "Cook traditional Kodava dishes like pandi curry and kadumbuttu with a local family.",
+    "duration_hint": "half day",
+    "tags": ["cuisine", "cooking class", "local family"]
+  },
+  {
+    "id": "e008",
+    "title": "Baluchari saree weaving demonstration",
+    "location": "Bishnupur, West Bengal",
+    "category": "craft",
+    "description": "Watch master weavers create Baluchari sarees depicting mythological scenes on the loom.",
+    "duration_hint": "half day",
+    "tags": ["textile", "handloom", "heritage"]
+  },
+  {
+    "id": "e009",
+    "title": "Camel fair and desert camp stay",
+    "location": "Pushkar, Rajasthan",
+    "category": "festival + homestay",
+    "description": "Experience the Pushkar Camel Fair and stay overnight in a desert camp with folk music around a bonfire.",
+    "duration_hint": "overnight",
+    "tags": ["festival", "desert camp", "folk music"]
+  },
+  {
+    "id": "e010",
+    "title": "Monastery morning prayers, Spiti",
+    "location": "Key Monastery, Spiti Valley, Himachal Pradesh",
+    "category": "spiritual",
+    "description": "Sit in on early morning prayer chants at one of the oldest Tibetan Buddhist monasteries in India.",
+    "duration_hint": "morning",
+    "tags": ["spiritual", "monastery", "offbeat"]
+  }
+]

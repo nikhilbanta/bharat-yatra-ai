@@ -1,0 +1,152 @@
+[
+  {
+    "id": "d001",
+    "name": "Hampi",
+    "state": "Karnataka",
+    "region": "South India",
+    "type": ["heritage", "history", "architecture"],
+    "description": "Ruins of the Vijayanagara Empire scattered across a boulder-strewn landscape on the Tungabhadra river.",
+    "best_season": "October to February",
+    "tags": ["UNESCO", "temples", "ruins", "offbeat"]
+  },
+  {
+    "id": "d002",
+    "name": "Majuli",
+    "state": "Assam",
+    "region": "Northeast India",
+    "type": ["nature", "culture", "spiritual"],
+    "description": "The world's largest river island, home to centuries-old Vaishnavite monasteries called satras.",
+    "best_season": "November to March",
+    "tags": ["river island", "monasteries", "offbeat", "tribal culture"]
+  },
+  {
+    "id": "d003",
+    "name": "Rann of Kutch",
+    "state": "Gujarat",
+    "region": "West India",
+    "type": ["nature", "culture", "adventure"],
+    "description": "A vast white salt desert that hosts the Rann Utsav festival with folk music, dance and handicrafts.",
+    "best_season": "November to February",
+    "tags": ["desert", "festival", "handicrafts", "photography"]
+  },
+  {
+    "id": "d004",
+    "name": "Khajuraho",
+    "state": "Madhya Pradesh",
+    "region": "Central India",
+    "type": ["heritage", "architecture", "spiritual"],
+    "description": "Group of medieval Hindu and Jain temples famed for intricate sculptural art.",
+    "best_season": "October to March",
+    "tags": ["UNESCO", "temples", "sculpture"]
+  },
+  {
+    "id": "d005",
+    "name": "Ziro Valley",
+    "state": "Arunachal Pradesh",
+    "region": "Northeast India",
+    "type": ["nature", "culture", "adventure"],
+    "description": "Home to the Apatani tribe, known for wet rice cultivation and the Ziro Music Festival.",
+    "best_season": "March to October",
+    "tags": ["tribal culture", "music festival", "offbeat", "hills"]
+  },
+  {
+    "id": "d006",
+    "name": "Coorg (Kodagu)",
+    "state": "Karnataka",
+    "region": "South India",
+    "type": ["nature", "food", "relaxation"],
+    "description": "Coffee plantation hills known as the Scotland of India, with Kodava culture and cuisine.",
+    "best_season": "October to March",
+    "tags": ["coffee", "hills", "cuisine", "plantation stays"]
+  },
+  {
+    "id": "d007",
+    "name": "Varanasi",
+    "state": "Uttar Pradesh",
+    "region": "North India",
+    "type": ["spiritual", "heritage", "culture"],
+    "description": "One of the oldest continuously inhabited cities, ghats along the Ganga, evening Ganga Aarti.",
+    "best_season": "October to March",
+    "tags": ["ghats", "spiritual", "ancient city"]
+  },
+  {
+    "id": "d008",
+    "name": "Spiti Valley",
+    "state": "Himachal Pradesh",
+    "region": "North India",
+    "type": ["adventure", "nature", "spiritual"],
+    "description": "A cold desert mountain valley with ancient Buddhist monasteries and stark Himalayan landscapes.",
+    "best_season": "June to September",
+    "tags": ["monasteries", "high altitude", "offbeat", "trekking"]
+  },
+  {
+    "id": "d009",
+    "name": "Chettinad",
+    "state": "Tamil Nadu",
+    "region": "South India",
+    "type": ["heritage", "food", "architecture"],
+    "description": "Region famed for grand mansions of Chettiar merchants and fiery Chettinad cuisine.",
+    "best_season": "November to February",
+    "tags": ["mansions", "cuisine", "offbeat"]
+  },
+  {
+    "id": "d010",
+    "name": "Gokarna",
+    "state": "Karnataka",
+    "region": "South India",
+    "type": ["nature", "spiritual", "relaxation"],
+    "description": "A temple town with quieter beaches, an alternative to nearby Goa.",
+    "best_season": "October to March",
+    "tags": ["beaches", "temples", "offbeat"]
+  },
+  {
+    "id": "d011",
+    "name": "Bishnupur",
+    "state": "West Bengal",
+    "region": "East India",
+    "type": ["heritage", "art", "architecture"],
+    "description": "Terracotta temple town famed for the Bishnupur gharana of classical music and baluchari sarees.",
+    "best_season": "October to March",
+    "tags": ["terracotta", "music", "handloom", "offbeat"]
+  },
+  {
+    "id": "d012",
+    "name": "Mawlynnong",
+    "state": "Meghalaya",
+    "region": "Northeast India",
+    "type": ["nature", "culture"],
+    "description": "Known as one of Asia's cleanest villages, with living root bridges nearby.",
+    "best_season": "September to May",
+    "tags": ["root bridges", "village", "offbeat", "eco-tourism"]
+  },
+  {
+    "id": "d013",
+    "name": "Pushkar",
+    "state": "Rajasthan",
+    "region": "West India",
+    "type": ["spiritual", "culture", "festival"],
+    "description": "Lakeside pilgrim town famed for the annual Pushkar Camel Fair.",
+    "best_season": "October to March",
+    "tags": ["camel fair", "lake", "temples"]
+  },
+  {
+    "id": "d014",
+    "name": "Munnar",
+    "state": "Kerala",
+    "region": "South India",
+    "type": ["nature", "relaxation"],
+    "description": "Rolling tea plantations in the Western Ghats with cool weather year-round.",
+    "best_season": "September to March",
+    "tags": ["tea", "hills", "plantation"]
+  },
+  {
+    "id": "d015",
+    "name": "Orchha",
+    "state": "Madhya Pradesh",
+    "region": "Central India",
+    "type": ["heritage", "architecture"],
+    "description": "A quieter medieval town of cenotaphs and palaces on the Betwa river, often overshadowed by nearby Khajuraho.",
+    "best_season": "October to March",
+    "tags": ["palaces", "offbeat", "river"]
+  }
+]
